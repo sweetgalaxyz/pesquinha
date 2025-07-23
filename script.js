@@ -7,6 +7,10 @@ let pontuacao = 0;
 let perdidos = 0;
 let jogador = "";
 
+// JSONBin config
+const BIN_ID = "68803ae6f7e7a370d1ec4913";
+const API_KEY = "$2a$10$O0L6jOOJ0w1dTq9.RoMaSOT330/R8rP4FE65VJq6OlPoor4oDs/Xy";
+
 function iniciarJogo() {
   jogador = prompt("Digite seu nome:");
   if (!jogador) jogador = "Jogador Anônimo";
@@ -82,6 +86,7 @@ function atualizarRanking() {
   ranking.sort((a, b) => b.pontos - a.pontos);
   localStorage.setItem('ranking', JSON.stringify(ranking));
   mostrarRanking();
+  salvarRankingOnline(ranking);
 }
 
 function mostrarRanking() {
@@ -94,7 +99,33 @@ function mostrarRanking() {
   });
 }
 
+function salvarRankingOnline(ranking) {
+  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Master-Key": API_KEY
+    },
+    body: JSON.stringify({ ranking })
+  }).catch(err => console.error("Erro ao salvar no JSONBin:", err));
+}
+
+function carregarRankingOnline() {
+  fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+    headers: {
+      "X-Master-Key": API_KEY
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const ranking = data.record.ranking || [];
+    localStorage.setItem('ranking', JSON.stringify(ranking));
+    mostrarRanking();
+  })
+  .catch(err => console.error("Erro ao carregar ranking do JSONBin:", err));
+}
+
 window.onload = () => {
-  mostrarRanking();
+  carregarRankingOnline();
   iniciarJogo();
 };
