@@ -7,7 +7,6 @@ let pontuacao = 0;
 let perdidos = 0;
 let jogador = "";
 
-// JSONBin config
 const BIN_ID = "68803ae6f7e7a370d1ec4913";
 const API_KEY = "$2a$10$O0L6jOOJ0w1dTq9.RoMaSOT330/R8rP4FE65VJq6OlPoor4oDs/Xy";
 
@@ -35,8 +34,7 @@ function criarPeixe() {
   peixe.style.width = `${tamanho}px`;
   peixe.style.top = Math.random() * 370 + 'px';
 
-  const duracao = Math.random() * 1.5 + 1.5;
-
+  const duracao = Math.random() * 1.5 + 1.5; 
   peixe.style.animation = `nadar ${duracao}s linear forwards`;
   peixe.style.left = '-60px';
 
@@ -91,6 +89,14 @@ function atualizarRanking() {
 
 function mostrarRanking() {
   let ranking = JSON.parse(localStorage.getItem('ranking') || "[]");
+
+  const nomesUnicos = new Set();
+  ranking = ranking.filter(j => {
+    if (nomesUnicos.has(j.nome)) return false;
+    nomesUnicos.add(j.nome);
+    return true;
+  });
+
   rankingLista.innerHTML = "";
   ranking.forEach((jogador, i) => {
     const li = document.createElement('li');
@@ -124,6 +130,11 @@ function carregarRankingOnline() {
   })
   .catch(err => console.error("Erro ao carregar ranking do JSONBin:", err));
 }
+
+window.onload = () => {
+  carregarRankingOnline();
+  iniciarJogo();
+};
 
 window.onload = () => {
   carregarRankingOnline();
