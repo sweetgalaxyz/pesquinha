@@ -35,7 +35,7 @@ function criarPeixe() {
   peixe.style.width = `${tamanho}px`;
   peixe.style.top = Math.random() * 370 + 'px';
 
-  const duracao = Math.random() * 1 + 2;
+  const duracao = Math.random() * 1.5 + 1.5;
 
   peixe.style.animation = `nadar ${duracao}s linear forwards`;
   peixe.style.left = '-60px';
