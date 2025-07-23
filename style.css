@@ -1,0 +1,43 @@
+
+body {
+  font-family: 'Comic Sans MS', sans-serif;
+  text-align: center;
+  background-color: #b3ecff;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin-top: 20px;
+  color: #0000FF;
+}
+
+#lago {
+  position: relative;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  height: 400px;
+  background-image: url('imagens/fundo-lago.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid #0000FF;
+}
+
+.peixe {
+  position: absolute;
+  width: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.peixe:hover {
+  transform: scale(1.1);
+}
+
+#pontuacao {
+  font-size: 20px;
+  color: #004466;
+}
