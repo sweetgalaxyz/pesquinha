@@ -16,7 +16,7 @@ function iniciarJogo() {
   pontuacao = 0;
   perdidos = 0;
   pontuacaoTexto.textContent = `Peixes pescados: ${pontuacao}`;
-  setInterval(criarPeixe, 500);
+  setInterval(criarPeixe, 1000);
 }
 
 const imagensPeixes = [
@@ -34,7 +34,7 @@ function criarPeixe() {
   peixe.style.width = `${tamanho}px`;
   peixe.style.top = Math.random() * 370 + 'px';
 
-  const duracao = Math.random() * 1 + 2; 
+  const duracao = Math.random() * 2 + 2; 
   peixe.style.animation = `nadar ${duracao}s linear forwards`;
   peixe.style.left = '-60px';
 
